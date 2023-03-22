@@ -8,37 +8,11 @@ import pygame
 import csv
 from pygame.locals import *
 from pygame import mixer
+import importpngs as pngs
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-# 画像ロード欄＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-player_image = pygame.image.load("画像/player.png")
-rect_player = player_image.get_rect()
-keyboard_image = pygame.image.load("画像/keyboard3.png")
-arrow = pygame.image.load("画像/point.png")
-start_menu = pygame.image.load("画像/title.png")
-sleepiness_image0 = pygame.image.load("画像/enemy0.png")
-sleepiness_image1 = pygame.image.load("画像/enemy1.png")
-sleepiness_image2 = pygame.image.load("画像/enemy2.png")
-sleepiness_image_boss = pygame.image.load("画像/bos1.png")
-power_up_image = pygame.image.load("画像/power_up.png")
-item_image0 = pygame.image.load("画像/item0.png")
-item_image1 = pygame.image.load("画像/item1.png")
-item_image2 = pygame.image.load("画像/item2.png")
-img_gameover = pygame.image.load("画像/gameover.png")
-bullet_player_image = pygame.image.load("画像/bullet.png")
-bullet_direction_light = pygame.image.load("画像/cell2.png")
-background_up = pygame.image.load("画像/haikei_up.png")
-background_left = pygame.image.load("画像/background_left.png")
-ranking_bg = pygame.image.load("画像/rank.png")
-animation_list = []
-for i in range(6):
-    x = pygame.image.load(f"画像/爆発アニメーション/{i + 1}.png")
-    animation_list.append(x)
-pygame.display.set_caption("限界大学生  -genkaidaigakusei-")
-icon=pygame.image.load("画像/icon.png")
-pygame.display.set_icon(icon)
 # 初期設定欄(globalで使用する変数)＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 screen_width = 1280
@@ -231,9 +205,9 @@ class Field:
 
         else:
             if self.x != 0 and self.y != 0:
-                screen.blit(bullet_direction_light, (self.x-45, self.y-35))
+                screen.blit(pngs.bullet_direction_light, (self.x-45, self.y-35))
 
-        player.print_mob(screen, player_image)
+        player.print_mob(screen, pngs.player_image)
 
     def vect_bullet(self, dx, dy, level):
 
@@ -266,7 +240,7 @@ class Field:
             bullet.x += bullet.dx
             bullet.y += bullet.dy
 
-            screen.blit(bullet_player_image, (bullet.x, bullet.y))
+            screen.blit(pngs.bullet_player_image, (bullet.x, bullet.y))
 
     def remove_bullet(self):
 
@@ -345,13 +319,13 @@ class Field:
                         self.bullets.pop(c_b)
 
                 if enemy.various == 0:
-                    enemy.print_mob(screen, sleepiness_image0)
+                    enemy.print_mob(screen, pngs.sleepiness_image0)
                 elif enemy.various == 1:
-                    enemy.print_mob(screen, sleepiness_image1)
+                    enemy.print_mob(screen, pngs.sleepiness_image1)
                 elif enemy.various == 2:
-                    enemy.print_mob(screen, sleepiness_image2)
+                    enemy.print_mob(screen, pngs.sleepiness_image2)
                 elif enemy.various == 3:
-                    enemy.print_mob(screen, sleepiness_image_boss)
+                    enemy.print_mob(screen, pngs.sleepiness_image_boss)
             
             elif enemy.hp >= 0:
 
@@ -359,7 +333,7 @@ class Field:
                     point += 1
 
                 if enemy.animation < 35:
-                    img = animation_list[enemy.animation // 6]
+                    img = pngs.animation_list[enemy.animation // 6]
                     enemy.animation += 1
                     screen.blit(img, (enemy.x, enemy.y))
                 else:
@@ -403,11 +377,11 @@ class Field:
         if self.items != None:
             for i in self.items:
                 if i.various == 0:
-                    screen.blit(item_image0, (i.x, i.y))
+                    screen.blit(pngs.item_image0, (i.x, i.y))
                 elif i.various == 1:
-                    screen.blit(item_image1, (i.x, i.y))
+                    screen.blit(pngs.item_image1, (i.x, i.y))
                 elif i.various == 2:
-                    screen.blit(item_image2, (i.x, i.y))
+                    screen.blit(pngs.item_image2, (i.x, i.y))
 
         for c_i, item in enumerate(self.items):
             if self.touch(player, item):
@@ -444,7 +418,7 @@ class Field:
     def draw_power(self, screen, time_item1):
 
         range = 70-(time_item1*70)//10000
-        screen.blit(power_up_image, (940, 8))
+        screen.blit(pngs.power_up_image, (940, 8))
         pygame.draw.rect(screen, (0, 0, 0), (965, 75, 70, 10))
         pygame.draw.rect(screen, (255, 0, 0), (965, 75, range, 10))
     
@@ -473,25 +447,26 @@ def gameover(field):
 
     while True:
         screen = pygame.display.set_mode((1280, 720))
-        screen.blit(keyboard_image, (160, 100))
-        screen.blit(img_gameover, (0, 0))
+        screen.blit(pngs.keyboard_image, (160, 100))
+        screen.blit(pngs.img_gameover, (0, 0))
         pygame.draw.rect(screen, (0, 0, 100), [1040, 45, 200, 20])
 
         for enemy in field.enemys:
 
             match enemy.various:
                 case 0:
-                    screen.blit(sleepiness_image0, (enemy.x, enemy.y))
+                    screen.blit(pngs.sleepiness_image0, (enemy.x, enemy.y))
                 case 1:
-                    screen.blit(sleepiness_image1, (enemy.x, enemy.y))
+                    screen.blit(pngs.sleepiness_image1, (enemy.x, enemy.y))
                 case 2:
-                    screen.blit(sleepiness_image2, (enemy.x, enemy.y))
+                    screen.blit(pngs.sleepiness_image2, (enemy.x, enemy.y))
                 case 3:
-                    screen.blit(sleepiness_image_boss, (enemy.x, enemy.y))
-        screen.blit(background_up, (0, 0))
-        screen.blit(background_left, (0, 100)) 
+                    screen.blit(pngs.sleepiness_image_boss, (enemy.x, enemy.y))
 
-        player.print_mob(screen, player_image)
+        screen.blit(pngs.background_up, (0, 0))
+        screen.blit(pngs.background_left, (0, 100)) 
+
+        player.print_mob(screen, pngs.player_image)
         font = "misaki_gothic.ttf"
         font1 = pygame.font.Font(font, 100)
         font2 = pygame.font.Font(font, 50)
@@ -531,7 +506,7 @@ def gameover(field):
 def ranking():
     while True:
         screen = pygame.display.set_mode((1280, 720))
-        screen.blit(ranking_bg,(0,0))
+        screen.blit(pngs.ranking_bg,(0,0))
         pygame.font.init()
         font = "misaki_gothic.ttf"
         font3 = pygame.font.Font(font, 60)
@@ -608,8 +583,8 @@ def start():
 
     while True:
 
-        screen.blit(start_menu, (0, 0))
-        screen.blit(arrow, (300, 340-cursor * 120))
+        screen.blit(pngs.start_menu, (0, 0))
+        screen.blit(pngs.arrow, (300, 340-cursor * 120))
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -695,13 +670,13 @@ def main(cursor):
             pygame.quit()
             sys.exit()
 
-        screen.blit(keyboard_image, (160, 100))
+        screen.blit(pngs.keyboard_image, (160, 100))
         field.move_player(key, screen, level)
         field.draw_item(screen)
         field.move_sleep(screen, level)
         field.move_bullet(screen)
-        screen.blit(background_up, (0, 0))
-        screen.blit(background_left, (0, 100))
+        screen.blit(pngs.background_up, (0, 0))
+        screen.blit(pngs.background_left, (0, 100))
         field.point_print(screen)
         font = "misaki_gothic.ttf"
         font1 = pygame.font.Font(font, 40)
