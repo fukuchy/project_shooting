@@ -8,7 +8,8 @@ from . import importpngs as pngs
 from . import Mob as mob
 from . import field as Fi
 from . import player as p
-
+from . import paramater as para
+from . import score
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,7 +24,6 @@ def time_count(time, screen):
     screen.blit(timer_text, (20, 15))
 
 def gameover(field):
-    global point
 
     pygame.mixer.music.load("音楽/gameover_BGM.mp3")
     pygame.mixer.music.play(-1)
@@ -59,10 +59,10 @@ def gameover(field):
         screen.blit(text2, (505, 340))
         text3 = font2.render("おわる key Esc", True, (200, 0, 0))
         screen.blit(text3, (505, 400))
-        text4 = font2.render(f"たおしたかず: {point}", True, (200,0,0)) 
+        text4 = font2.render(f"たおしたかず: {para.point}", True, (200,0,0)) 
         screen.blit(text4, (495, 220))
 
-        with open("score_file.csv","r") as file:
+        with open("setting/score_file.csv","r") as file:
             score_list = list()
             data = csv.reader(file)
             for row in data:
@@ -86,66 +86,6 @@ def gameover(field):
 
         pygame.display.update()
 
-def ranking():
-    while True:
-        screen = pygame.display.set_mode((1280, 720))
-        screen.blit(pngs.ranking_bg,(0,0))
-        pygame.font.init()
-        font = "misaki_gothic.ttf"
-        font3 = pygame.font.Font(font, 60)
-        # font3 = pygame.font.SysFont(None, 80)
-        with open("score_file.csv","r") as file:
-            score_list = list()
-            data = csv.reader(file)
-            for row in data:
-                score_list.extend(row)
-            
-            for x in range(10):
-                
-                text6 = font3.render(f"No{x+1}.       {score_list[x]}", True, (200,0,0))
-                screen.blit(text6, (420, 85+60*x))
-
-            for event in pygame.event.get():
-
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                if event.type == KEYDOWN:
-                    if event.key == K_r:
-                        return start()
-        
-        pygame.display.update()
-
-def score_save():
-    global point
-    with open("score_file.csv","r") as file:
-        score_list = list()
-        data = csv.reader(file)
-        for row in data:
-            score_list.extend(row)
-
-        score_list_2 = list()
-        score_list_2.append(point)
-        for value in score_list:
-            score_list_2.append(int(value))
-
-        score_list_2.sort(reverse=True)
-
-        if len(score_list) >= 10:        
-            score_list_3 = list()
-            for x in range(10):
-                score_list_3.append(score_list_2[x])
-
-            file.close()
-            with open("score_file.csv","w", newline="") as file:
-                writer = csv.writer(file)
-                for x in range(10):
-                    writer.writerow([score_list_3[x]])
-        else:
-            with open("score_file.csv","a", newline="") as file:
-                writer = csv.writer(file)
-                writer.writerow([point])
-
 def level_check(cursor):
 
     if cursor == 1:
@@ -161,6 +101,9 @@ def start():
     screen = pygame.display.set_mode((1280, 720))
     pygame.mixer.music.load("音楽/start_BGM.mp3")
     pygame.mixer.music.play(-1)
+
+    player_name = input("player_name:")
+    p.player.name = player_name
 
     while True:
 
@@ -179,7 +122,7 @@ def start():
                     if cursor > -1:
                         cursor -= 1
                 elif event.key == K_r:
-                    ranking()
+                    score.ranking()
 
         key = pygame.key.get_pressed()
 

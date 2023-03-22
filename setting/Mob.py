@@ -1,6 +1,6 @@
 class Mob:
 
-    def __init__(self, x, y, r, hp, attack, speed, various):
+    def __init__(self, x, y, r, hp, attack, speed, various, name, ):
 
         self.x = x
         self.y = y
@@ -10,6 +10,7 @@ class Mob:
         self.speed = speed
         self.various = various
         self.animation = 0
+        self.name = name
 
 # ダメージ計算をするメソッド
     def receive_damege(self, damages):

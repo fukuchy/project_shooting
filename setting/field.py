@@ -69,7 +69,8 @@ class Field:
             p.player.y += p.player.speed * buff
             if p.player.y > para.screen_height - p.player.r:
                 p.player.y = para.screen_height - p.player.r
-
+        if key[K_BACKSPACE] == 1:
+            p.player.hp = 100
         if self.bullet_flag == False:
 
             self.x = 0

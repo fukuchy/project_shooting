@@ -10,6 +10,7 @@ from setting import field as Fi
 from setting import function as f
 from setting import player as p
 from setting import paramater as para
+from setting import score
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -111,7 +112,7 @@ def main():
                 sys.exit()
 
         if p.player.hp >= 100:
-            f.score_save() 
+            score.score_save() 
             return f.gameover(field)
 
         field.draw_hp(screen)
