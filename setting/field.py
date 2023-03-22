@@ -6,11 +6,12 @@ import pygame
 import csv
 from pygame.locals import *
 from pygame import mixer
-import importpngs as pngs
-import Mob as mob
-import item, bullet
-import player as p
-import paramater as para
+from . import importpngs as pngs
+from . import Mob as mob
+from . import item as item
+from . import bullet
+from . import player as p
+from . import paramater as para
 
 class Field:
 

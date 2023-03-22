@@ -4,10 +4,10 @@ import pygame
 import csv
 from pygame.locals import *
 from pygame import mixer
-import importpngs as pngs
-import Mob as mob
-import field as Fi
-import player as p
+from . import importpngs as pngs
+from . import Mob as mob
+from . import field as Fi
+from . import player as p
 
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
