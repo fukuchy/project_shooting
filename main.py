@@ -26,7 +26,7 @@ def main():
     para.init()
 
     print(p.player.name)
-    
+
     while True:
 
         dt = para.fps_clock.tick(60)
