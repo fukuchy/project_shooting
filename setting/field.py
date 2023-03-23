@@ -207,13 +207,13 @@ class Field:
 
         if enemy_choice == 0:
             self.enemys.append(
-                mob.Mob(x, y, r=80, hp=-50, attack=30, speed=1, various=0))
+                mob.Mob(x, y, r=80, hp=-50, attack=30, speed=1, various=0, name= ""))
         elif enemy_choice == 1:
             self.enemys.append(
-                mob.Mob(x, y, r=60, hp=-20, attack=10, speed=2.5, various=1))
+                mob.Mob(x, y, r=60, hp=-20, attack=10, speed=2.5, various=1, name= ""))
         elif enemy_choice == 2:
             self.enemys.append(
-                mob.Mob(x, y, r=45, hp=-10, attack=5, speed=4, various=2))
+                mob.Mob(x, y, r=45, hp=-10, attack=5, speed=4, various=2, name= ""))
 
     # レベルを考慮するか
     def move_sleep(self, screen, level):
@@ -293,7 +293,7 @@ class Field:
             y = random.randint(148, 717)
 
         self.enemys.append(
-            mob.Mob(x, y, r=160, hp=-150, attack=50, speed=0.5, various=3))
+            mob.Mob(x, y, r=160, hp=-150, attack=50, speed=0.5, various=3, name = ""))
 
     def append_item(self):
 

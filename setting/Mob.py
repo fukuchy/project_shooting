@@ -12,10 +12,8 @@ class Mob:
         self.animation = 0
         self.name = name
 
-# ダメージ計算をするメソッド
     def receive_damege(self, damages):
         self.hp += damages
 
-# 描画メソッド
     def print_mob(self, screen, img):
         screen.blit(img, [self.x, self.y])

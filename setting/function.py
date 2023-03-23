@@ -5,11 +5,10 @@ import csv
 from pygame.locals import *
 from pygame import mixer
 from . import importpngs as pngs
-from . import Mob as mob
-from . import field as Fi
 from . import player as p
 from . import paramater as para
 from . import score
+import main as m
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
@@ -79,7 +78,7 @@ def gameover(field):
                 sys.exit()
 
         if key[K_c] == 1:
-            return start()
+            m.main()
         elif key[K_e] == 1 or key[K_ESCAPE] == 1:
             pygame.quit()
             sys.exit()
@@ -101,9 +100,6 @@ def start():
     screen = pygame.display.set_mode((1280, 720))
     pygame.mixer.music.load("音楽/start_BGM.mp3")
     pygame.mixer.music.play(-1)
-
-    player_name = input("player_name:")
-    p.player.name = player_name
 
     while True:
 
@@ -127,13 +123,11 @@ def start():
         key = pygame.key.get_pressed()
 
         if key[K_SPACE] == 1:
-            mixer.Sound("音楽/selective_sound.mp3").play()
-            p.player.hp = 0
-            p.player.x = 640
-            p.player.y = 360
-            #main(cursor)
+
             return cursor
+        
         if key[K_ESCAPE] == 1:
+
             pygame.quit()
             sys.exit()
 
