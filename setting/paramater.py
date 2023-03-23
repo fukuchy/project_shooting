@@ -9,6 +9,11 @@ from . import function as f
 from . import player as p
 from . import paramater as para
 from . import score
+pygame.init()
+COLOR_INACTIVE = pygame.Color('lightskyblue3')
+COLOR_ACTIVE = pygame.Color('dodgerblue2')
+FONT = pygame.font.SysFont("notosansmonocjkjp", 32) #Ubuntu18.04 標準日本語フォント
+
 
 screen_width = 1280
 screen_height = 720
@@ -31,7 +36,7 @@ field.width = 200
 pygame.mixer.music.load("音楽/main_BGM.mp3")
 pygame.mixer.music.play(-1)
 ccount = 0
-
+input_flag = True
 def init():
     
     p.player.hp = 0
@@ -55,3 +60,5 @@ def init():
     pygame.mixer.music.load("音楽/main_BGM.mp3")
     pygame.mixer.music.play(-1)
     para.ccount = 0
+
+    para.input_flag = True

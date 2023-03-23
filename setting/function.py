@@ -8,6 +8,7 @@ from . import importpngs as pngs
 from . import player as p
 from . import paramater as para
 from . import score
+from . import textbox as t
 import main as m
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -100,17 +101,18 @@ def start():
     screen = pygame.display.set_mode((1280, 720))
     pygame.mixer.music.load("音楽/start_BGM.mp3")
     pygame.mixer.music.play(-1)
-
+    input_box,button = t.name_input_init()
     while True:
 
         screen.blit(pngs.start_menu, (0, 0))
         screen.blit(pngs.arrow, (300, 340-cursor * 120))
-
+        
         for event in pygame.event.get():
+            t.name_input(input_box,button,event)
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN:
+            if event.type == KEYDOWN and para.input_flag == True:
                 if event.key == K_w:
                     if cursor < 1:
                         cursor += 1
@@ -119,7 +121,7 @@ def start():
                         cursor -= 1
                 elif event.key == K_r:
                     score.ranking()
-
+        t.draw_textbox(screen,input_box,button)
         key = pygame.key.get_pressed()
 
         if key[K_SPACE] == 1:

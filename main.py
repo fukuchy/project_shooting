@@ -13,18 +13,20 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
 
-while True:
-    player_name = input("player_name:")
+# while True:
+#     player_name = input("player_name:")
 
-    if player_name != "":
+#     if player_name != "":
         
-        p.player.name = player_name
-        break
+#         p.player.name = player_name
+#         break
 
 def main():
-
+    
     para.init()
 
+    print(p.player.name)
+    
     while True:
 
         dt = para.fps_clock.tick(60)
