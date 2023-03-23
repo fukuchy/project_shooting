@@ -80,6 +80,7 @@ def gameover(field):
 
         if key[K_c] == 1:
             m.main()
+            
         elif key[K_e] == 1 or key[K_ESCAPE] == 1:
             pygame.quit()
             sys.exit()
