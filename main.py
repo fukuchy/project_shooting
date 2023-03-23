@@ -10,7 +10,7 @@ from setting import paramater as para
 from setting import score
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+#sample
 
 
 # while True:
@@ -26,7 +26,7 @@ def main():
     para.init()
 
     print(p.player.name)
-    
+
     while True:
 
         dt = para.fps_clock.tick(60)
