@@ -10,7 +10,7 @@ from setting import paramater as para
 from setting import score
 mixer.init()
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
+#test
 
 
 # while True:

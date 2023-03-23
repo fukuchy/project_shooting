@@ -74,7 +74,7 @@ class InputBox:
 
 def name_input_init():
     input_box = InputBox(950, 500, 140, 32)
-    button = Button(950, 500, 140, 32, "write your name")
+    button = Button(950, 500, 140, 32, p.player.name)
     return input_box,button
 
 def name_input(input_box,button,event):
@@ -92,47 +92,3 @@ def draw_textbox(screen,input_box,button):
     if button.onClick():
         button.text = ""
         
-def aaa():
-    clock = pygame.time.Clock()
-    input_box1 = InputBox(100, 100, 140, 32)
-    input_box2 = InputBox(100, 300, 140, 32)
-    input_boxes = [input_box1, input_box2]
-    button1 = Button(100, 140, 140, 32, "button1")
-    button2 = Button(100, 340, 140, 32, "button2")
-    buttons = [button1, button2]
-
-    exit_sw = False
-    while not exit_sw:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit_sw = True
-            for n, box in enumerate(input_boxes):
-                r = box.handle_event(event)
-                if r != "":
-                    buttons[n].text = r
-            for box in input_boxes:
-                box.update()
-            for b in buttons:
-                b.handle_event(event)
-            for b in buttons:
-                b.update()
-        screen.fill((30, 30, 30))
-        for box in input_boxes:
-            box.draw(screen)
-        for b in buttons:
-            b.draw(screen)
-        for b in buttons:
-            if b.onClick():
-                print(b.text+" hit")
-
-        pygame.display.flip()
-        clock.tick(30)
-
-
-# pygame.init()
-# screen = pygame.display.set_mode((640, 480))
-# COLOR_INACTIVE = pygame.Color('lightskyblue3')
-# COLOR_ACTIVE = pygame.Color('dodgerblue2')
-# para.FONT = pygame.para.font.Syspara.Font("notosansmonocjkjp", 32) #Ubuntu18.04 標準日本語フォント
-# main()
-# pygame.quit()
